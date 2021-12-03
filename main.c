@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <math.h>
 
+//10101000 -> 168
+
 void decimal_to_binary(int *v, int num){
   int div=128;
   for(int i=0; i<8; i++){
-    printf("|%d|%d|\n",num,div);
+    //printf("|%d|%d|\n",num,div);
     if(num/div==1){
       v[i]=1;
       num=num%div;
@@ -14,24 +16,20 @@ void decimal_to_binary(int *v, int num){
 }
 
 int binary_to_decimal(int num){
-  int result, exp=0, soma=0;
+  int exp=0, soma=0;
   while(num/10>0){
-    printf(".");
-    exp++;
     int dig = num%10;
     if(dig == 1){
-      printf("-");
       soma=soma+pow(2,exp);
     }
     num=num/10;
+    exp++;
   }
-  exp++;
-    int dig = num%10;
-    if(dig == 1){
-      printf("-");
-      soma=soma+pow(2,exp);
-    }
-  return result;
+  int dig = num%10;
+  if(dig == 1){
+    soma=soma+pow(2,exp);
+  }
+  return soma;
 }
 
 int binary_checker(int num){
@@ -43,6 +41,10 @@ int binary_checker(int num){
       break;
     }
     num=num/10;
+  }
+  if(num%10>1 && check==0){
+      printf("\n----- INVALIDO! -----\n");
+      check=1;
   }
   return check;
 }
