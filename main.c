@@ -3,15 +3,27 @@
 
 //10101000 -> 168
 
-void decimal_to_binary(int *v, int num){
-  int div=128;
-  for(int i=0; i<8; i++){
-    //printf("|%d|%d|\n",num,div);
-    if(num/div==1){
-      v[i]=1;
-      num=num%div;
-    }
-    div=div/2;
+void decimal_to_binary(int num){
+  int res=0, cont=0;
+  while(num/2>0){ //Conversion to binary, but inverted (division by 2 loop)
+    res=res*10;
+    res+=num%2;
+    num=num/2;
+    cont++; //counter of binary digits, to optimize vector size
+  }
+  res=res*10;
+  res+=num%2;
+  num=num/2;
+  cont++;
+
+  int v[cont], looper=cont-1;
+  for(int i=cont; i>0; i--){ //Inverts binary and writes in stdout
+    v[i] = res%10;
+    res=res/10;
+    printf("%d",v[i]);
+    if(looper%4==0)
+      printf(" ");
+    looper--;
   }
 }
 
@@ -50,7 +62,8 @@ int binary_checker(int num){
 }
 
 int main(void) {
-  int function;// Ler numero
+  int function;
+  // Ler numero
   do{
     printf("Binário (0) ou decimal (1)? ");
     scanf("%d",&function);
@@ -59,28 +72,20 @@ int main(void) {
   }while(function !=0 && function !=1);
   int num;
 
-  //decimal
+  //Decimal
   if(function==1){  
-    printf("Digite um número de 0 a 255: \n");
+    printf("Digite um número: \n");
     scanf("%d",&num);
 
-    int vec[8];//Vetor + tudo a zeros
-    for(int i=0;i<8;i++){
-      vec[i]=0;
-    }
-
-    decimal_to_binary(vec, num);
-
-    for(int i=0;i<8;i++){
-      printf("%d ",vec[i]);
-    }
+    decimal_to_binary(num);
+    
   }
 
-  //binario
+  //Binario
   else{
     int check;
     do{
-      printf("Introduza um número binário até 1111 1111: ");
+      printf("Introduza um número binário: ");
       scanf("%d",&num);
       check=binary_checker(num);
     }while(check==1);
