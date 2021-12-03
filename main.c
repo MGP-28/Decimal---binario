@@ -13,20 +13,6 @@ void decimal_to_binary(int *v, int num){
   }
 }
 
-/*int binary_to_decimal(int num){
-  int exp=0;
-  while(num/10>0){
-    printf(".");
-    exp++;
-    int dig = num%10;
-    if(dig == 1){
-      printf("-");
-      soma=soma+pow(2,exp);
-    }
-    num=num/10;
-  }
-}*/
-
 int binary_to_decimal(int num){
   int result, exp=0, soma=0;
   while(num/10>0){
